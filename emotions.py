@@ -9,11 +9,11 @@ def __build_url(end):
   return "%s%s" % (__server, end)
 
 def happy():
-  #urllib2.urlopen(__build_url("turn/left-eye/100")).read()
-  #urllib2.urlopen(__build_url("turn/right-eye/0")).read()
-  #urllib2.urlopen(__build_url("turn/left-brow/50")).read()
-  #urllib2.urlopen(__build_url("turn/right-brow/50")).read()
-  urllib2.urlopen(__build_url("speech/toimi_paska")).read()
+  urllib2.urlopen(__build_url("turn/left-eye/100")).read()
+  urllib2.urlopen(__build_url("turn/right-eye/0")).read()
+  urllib2.urlopen(__build_url("turn/left-brow/50")).read()
+  urllib2.urlopen(__build_url("turn/right-brow/50")).read()
+  urllib2.urlopen(__build_url("speech/im_happy")).read()
 
 def main(argv):
   print "Emotions test program"

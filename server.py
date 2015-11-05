@@ -38,18 +38,23 @@ def turn_eye(name, value):
 
 @app.route("/speech/<phrase>", methods=['GET'])
 def speech(phrase):
-  subprocess.call(["espeak", phrase]);
+  subprocess.Popen(["espeak", phrase]);
   return phrase
 
-@app.route("/crazy/<int:time>", methods=['GET'])
-def crazy(time):
-  endTime = time.gmtime()
-  while time.gmtime() < endTime:
+@app.route("/crazy/<int:howLong>", methods=['GET'])
+def crazy(howLong):
+  if howLong > 10:
+    howLong = 10
+  print "run for %d seconds" % howLong
+  endTime = time.time() + howLong
+  print "time: %s" % endTime
+  while time.time() < endTime:
     for key, value in limits.iteritems():
       address = value[0]
       randomValue = random.randint(0, 100)
-      pwm.set_pwm(address, 0 scale_value(key, randomValue))
-    time.sleep(0.5)
+      pwm.set_pwm(address, 0, scale_value(key, randomValue))
+    time.sleep(0.1)
+  return "sane again"
 
 @app.route("/servotest/<int:delay>", methods=['GET'])
 def servotest(delay):
@@ -68,7 +73,7 @@ def scale_value(name, value):
     return servo_values[2]
   step = (servo_values[2] - servo_values[1]) / 100.0
   
-  print "Step: %s, value: %s, Servo values: %s" % (step, value, servo_values)
+  #print "Step: %s, value: %s, Servo values: %s" % (step, value, servo_values)
   return int(round((step * value) + servo_values[1]))
 
 if __name__ == "__main__":

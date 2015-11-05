@@ -66,3 +66,11 @@ http://localhost:5000/crazy/{duration}
 
 Replace `{duration}` with integer between 0-10. Duration is in seconds.
 Does random movement.
+
+
+## Web UI
+
+* install meteor.js in a machine where it can communicate with the puhuvapaa server (server address is obviously hard coded in webui.js)
+* goto webui folder
+* run 'meteor'
+

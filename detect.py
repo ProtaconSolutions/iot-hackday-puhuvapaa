@@ -27,18 +27,25 @@ def compare():
    stream.close()
    return im, buffer
 
+def maxIndex(pixValues):
+  maxValue = max(pixValues)
+  for i in range(len(pixValues)):
+    if maxValue == pixValues[i]:
+      return i   
+  return -1	      
+
 image1, buffer1 = compare()
 
 timestamp = time.time()
+
+pixAngle = [0, 20, 35, 50, 70, 85, 100] 
 
 while (True):
 
    image2, buffer2 = compare()
 
-   pixLeft = 0
-   pixMiddle = 0
-   pixRight = 0
-
+   pixArray = [15, 30, 45, 60, 75, 90, 100]
+   pixValues = [0,0,0,0,0,0,0]
 
    changedpixels = 0
    for x in xrange(0, 100):
@@ -46,40 +53,29 @@ while (True):
          pixdiff = abs(buffer1[x,y][1] - buffer2[x,y][1])
          if pixdiff > difference:
             changedpixels += 1
-	    if x < 40:
-		pixLeft += 1
-	    elif x < 60:
-		pixMiddle += 1
-	    else:
-		pixRight += 1
+            for i in range(len(pixArray)):
+              if pixArray[i] > x:
+                pixValues[i] += 1
+		break 
+
 
    if changedpixels > pixels:
       timestamp = time.time()
+      for i in range(len(pixArray)):
+        print "%d - %d" % (pixArray[i], pixValues[i])
+
       # print "Left : %d" % pixLeft # 100
       # print "Mid  : %d" % pixMiddle
       # print "Right: %d" % pixRight # 0
       direction = ''
-      if pixLeft > 50 and pixMiddle > 50 and pixRight > 50: 
-        if pixLeft > pixMiddle:
-           if pixLeft > pixRight:
-              direction = 'left'
-           else:
-              direction = 'right'
-        else:
-           if pixMiddle > pixRight:
-              direction = 'middle'
-           else:
-              direction = 'right'
-        #print direction
-	if direction == 'left':
-       	  urllib2.urlopen(mainframeUrl + "turn/left-eye/100")
-       	  urllib2.urlopen(mainframeUrl + "turn/right-eye/100")
-	elif direction == 'right':
-       	  urllib2.urlopen(mainframeUrl + "turn/left-eye/0")
-       	  urllib2.urlopen(mainframeUrl + "turn/right-eye/0")
-	elif direction == 'middle':
-       	  urllib2.urlopen(mainframeUrl + "turn/left-eye/50")
-       	  urllib2.urlopen(mainframeUrl + "turn/right-eye/50")
+
+      maxIdx = maxIndex(pixValues)
+      angle = pixAngle[maxIdx]
+    
+      print "max index: %d" % maxIdx
+
+      urllib2.urlopen(mainframeUrl + "turn/left-eye/%d" % angle )
+      urllib2.urlopen(mainframeUrl + "turn/right-eye/%d" % angle)
 
    image1 = image2
    buffer1 = buffer2

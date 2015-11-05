@@ -7,6 +7,7 @@ from flask import Flask
 import random
 # enable calling speech functions
 import subprocess
+import oracle
 
 limits = {
   "left-eye":(14, 200, 400),
@@ -40,6 +41,13 @@ def turn_eye(name, value):
 def speech(phrase):
   subprocess.Popen(["espeak", phrase]);
   return phrase
+
+@app.route("/oracle/<question>", methods=['GET'])
+def ask_oracle(question):
+  answer = oracle.ask_from_oracle(question)
+  output = "%s %s" % (question, answer)
+  subprocess.Popen(["espeak", "-vfi", output]);
+  return answer
 
 @app.route("/crazy/<int:howLong>", methods=['GET'])
 def crazy(howLong):

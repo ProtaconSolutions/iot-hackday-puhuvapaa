@@ -22,8 +22,8 @@ def emotion_angry():
   left_brow(90)
 
 def emotion_disapointed():
-  right_brow(10)
-  left_brow(90)
+  right_brow(90)
+  left_brow(10)
 
 def emotion_neutral():
   right_brow(50)

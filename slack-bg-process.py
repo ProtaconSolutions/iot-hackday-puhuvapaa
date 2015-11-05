@@ -14,7 +14,7 @@ def __handle_emoticons(message):
     if emotion == "disappointed":
       emotions.emotion_disapointed()
     if emotion == "neutral_face":
-      emotions.neutral()
+      emotions.emotion_neutral()
     if emotion == "thinking_face":
       emotions.emotion_thinking()
     if emotion == "stuck_out_tongue_winking_eye":

@@ -20,12 +20,12 @@ pwm.set_pwm_freq(60)
 pwm.output_enable()
 
 port = input("Anna portti: ")
-print ("portiksi asetettu: " + port)
+print ("portiksi asetettu: %s" % port)
 
 while (True):
   # Move servo on port 0 between three points
   dir = input("Anna asento: ")
-  print ("uusi asento: " + dir)
+  print ("uusi asento: %s" % dir)
   pwm.set_pwm(port, 0, dir)
   time.sleep(1)
 

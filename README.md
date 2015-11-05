@@ -15,14 +15,6 @@ Install ServoPi library:
 
 Or whatever folder contains that ServoPi thingy
 
-
-
-
-
-
-
-
-
 Raspberry Pi Camera Board
 
 1. Follow instructions to place the camera on the Pi.
@@ -30,3 +22,24 @@ Raspberry Pi Camera Board
 3. Do the steps 7 and 8 from this tutorial: http://www.pyimagesearch.com/2015/02/23/install-opencv-and-python-on-your-raspberry-pi-2-and-b/
 4. Do the steps 4 from http://www.pyimagesearch.com/2015/03/30/accessing-the-raspberry-pi-camera-with-opencv-and-python/
 5. Time to code! Do step 5 from the aforementioned link.
+
+# Usage
+
+Run server:
+> python server.py
+
+HTTP GET:
+http://localhost:5000/turn/{part}/{value}
+
+Replace `{part}` with one of following values
+* Motors:
+  * `left-eye`
+  * `right-eye`
+  * `left-brow`
+  * `right-brow`
+* Leds:
+  * `mouth1`
+  * `mouth2`
+  * `mouth3`
+
+Replace `{value}` with integer between 0-100.

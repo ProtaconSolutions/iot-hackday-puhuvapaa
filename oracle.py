@@ -9,7 +9,7 @@ __oracle_address = "http://www.lintukoto.net/viihde/oraakkeli/index.php"
 
 def ask_from_oracle(question):
   form_values = {
-    "kysymys_69141524":question,
+    "kysymys_69141524":question.encode("utf-8"),
     "rnd":"69141524" }
 
   data = urllib.urlencode(form_values)

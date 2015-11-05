@@ -7,7 +7,7 @@ from flask import Flask
 
 bus = ABEHelpers().get_smbus()
 pwm = PWM(bus, 0x40)
-pwm.set_pwn_freq(60)
+pwm.set_pwm_freq(60)
 pwm.output_enable()
 
 app = Flask(__name__)

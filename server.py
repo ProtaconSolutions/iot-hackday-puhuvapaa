@@ -94,7 +94,8 @@ def finnish(phrase):
 @app.route("/oracle/<question>", methods=['GET'])
 def ask_oracle(question):
   answer = oracle.ask_from_oracle(question)
-  output = "%s %s" % (question, answer)
+  output = "%s . . . .  %s" % (question, answer) 
+
   subprocess.Popen(["espeak", "-vfi", output]);
   return answer
 

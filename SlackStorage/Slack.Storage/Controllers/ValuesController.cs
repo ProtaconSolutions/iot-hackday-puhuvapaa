@@ -21,12 +21,6 @@ namespace Slack.Storage.Controllers
         public string Content { get; set; }
     }
 
-    public class HookPayload
-    {
-        public string Created { get; set; }
-        public string Text { get; set; }
-    }
-
     [Route("api/message")]
     public class ValuesController : Controller
     {
@@ -41,7 +35,7 @@ namespace Slack.Storage.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody] HookPayload slackMessage)
+        public void Post()
         {
             if (Request.Body.CanSeek)
                 Request.Body.Position = 0;
@@ -50,19 +44,7 @@ namespace Slack.Storage.Controllers
 
             var queryDictionary = Microsoft.AspNet.WebUtilities.QueryHelpers.ParseQuery(input);
 
-            Messages.Add(new Message(queryDictionary["text"].Aggregate("", (a,b) => a+b).Replace("!say","")));
-
-            /*
-            var regex = new Regex(".*text=(.*?)&.*");
-
-            if (regex.IsMatch(input))
-            {
-                Messages.Add(new Message(regex.Match(input).Groups[1].Value));
-            }
-            else
-            {
-                Messages.Add(new Message("EI LÖYTYNYT: " + input));
-            }*/
+            Messages.Add(new Message(queryDictionary["text"].Aggregate("", (a,b) => a+b).Replace("!say","").Trim()));
         }
     }
 }

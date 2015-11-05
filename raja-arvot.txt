@@ -1,0 +1,7 @@
+raja-arvot
+
+12 = 260-460 (vasen kulmakarva)
+13 = 380-560 (oikea kulmakarva)
+14 = 200-400 (vasen silmä)
+15 = 180-360 (oikea silmä)
+16 = ?

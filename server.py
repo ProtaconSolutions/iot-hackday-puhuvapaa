@@ -37,9 +37,30 @@ def turn_eye(name, value):
   pwm.set_pwm(index[0], 0, scaled)
   return "Turn %s %d Scaled value: %s" % (name, value, scaled)
 
+@app.route("/move/<name>/<int:start>/<int:end>/<int:speed>")
+def move(name, start, end, speed):
+  index = limits[name]
+  startAngle = scale_value(name, start)
+  endAngle = scale_value(name, end)
+  currentAngle = startAngle
+  if start < end
+    step = speed
+  elif
+    step = -speed
+  while(currentAngle < endAngle):
+    pwm.set(index[0], 0, currentAngle)
+    currentAngle = currentAngle + step
+    time.sleep(0.1)
+  return "ready"
+
 @app.route("/speech/<phrase>", methods=['GET'])
 def speech(phrase):
-  subprocess.Popen(["espeak", phrase]);
+  subprocess.Popen(["espeak", phrase])
+  return phrase
+
+@app.route("/suomi/<phrase>", methods=['GET'])
+def speech(phrase):
+  subprocess.Popen(["espeak", "-vfi", phrase])
   return phrase
 
 @app.route("/oracle/<question>", methods=['GET'])

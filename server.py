@@ -43,9 +43,9 @@ def move(name, start, end, speed):
   startAngle = scale_value(name, start)
   endAngle = scale_value(name, end)
   currentAngle = startAngle
-  if start < end
+  if start < end:
     step = speed
-  elif
+  else:
     step = -speed
   while(currentAngle < endAngle):
     pwm.set(index[0], 0, currentAngle)
@@ -59,7 +59,7 @@ def speech(phrase):
   return phrase
 
 @app.route("/suomi/<phrase>", methods=['GET'])
-def speech(phrase):
+def finnish(phrase):
   subprocess.Popen(["espeak", "-vfi", phrase])
   return phrase
 

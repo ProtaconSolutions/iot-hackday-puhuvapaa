@@ -44,17 +44,17 @@ def speech(phrase):
 @app.route("/crazy/<int:time>", methods=['GET'])
 def crazy(time):
   endTime = time.gmtime()
-  while(time.gmtime() < endTime)
-    for key, value in limits.iteritems()
+  while time.gmtime() < endTime:
+    for key, value in limits.iteritems():
       address = value[0]
       randomValue = random.randint(0, 100)
       pwm.set_pwm(address, 0 scale_value(key, randomValue))
     time.sleep(0.5)
 
 @app.route("/servotest/<int:delay>", methods=['GET'])
-def servotest(delay)
-  for i in [0, 100, 50]
-    for key, value in limits.iteritems()
+def servotest(delay):
+  for i in [0, 100, 50]:
+    for key, value in limits.iteritems():
       address = value[0]
       pwm.set_pwm(address, 0, scale_value(key, i))
     time.sleep(1)

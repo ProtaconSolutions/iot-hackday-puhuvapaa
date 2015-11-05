@@ -51,6 +51,8 @@
 	</table>
 	{{> brows}}
 	<hr />
+	{{> speech}}
+	<hr />
 	{{> panicButton}}
 </body>
 
@@ -90,4 +92,10 @@
 
 <template name="commandButton">
 	<button data-call="{{call}}">{{text}}</button>
+</template>
+
+<template name="speech">
+  <input id="speechbox" />
+  <button id="suomi">suomea</button>
+  <button id="english">do you speak it?</button>
 </template>

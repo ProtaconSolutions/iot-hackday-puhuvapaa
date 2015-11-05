@@ -99,6 +99,21 @@ if(Meteor.isClient) {
 			}
 		}
 	});
+
+	Template.speech.events({
+		'click #suomi': function() {
+			var teksti = $('#speechbox').val();
+			var komento = ['suomi', teksti].join('/');
+			Meteor.call('runAnyCommand', komento);
+			$('#speechbox').val('');
+		},
+		'click #english': function() {
+			var text = $('#speechbox').val();
+			var command = ['speech', text].join('/');
+			Meteor.call('runAnyCommand', command);
+			$('#speechbox').val('');
+		}
+	});
 }
 
 if (Meteor.isServer) {

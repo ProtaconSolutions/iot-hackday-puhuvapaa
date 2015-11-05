@@ -3,4 +3,5 @@ TODO: FIX THIS BEFORE PRODUCTION!
 
 # Installation
 pip install Flask
+sudo apt-get install python-smbus
 

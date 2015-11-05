@@ -8,7 +8,7 @@ __url_messages = "http://puhuvapaa.azurewebsites.net/api/message"
 
 def __speak(message):
   url = "%s%s" % (__url_speak, message)
-  req = urllib2.Request(url.replace(" ", "%20"))
+  req = urllib2.Request(url.replace(" ", "%20").encode("utf-8"))
   urllib2.urlopen(req).read()
 
 def read_messages():

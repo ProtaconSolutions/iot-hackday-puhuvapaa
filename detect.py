@@ -15,8 +15,8 @@ mainframeUrl = "http://127.0.0.1:5000/"
 difference = 20
 pixels = 120
 
-width = 1280
-height = 960
+width = 800 #1280
+height = 600 #960
 
 def compare():
    camera.resolution = (100, 75)
@@ -60,7 +60,6 @@ while (True):
                 pixValues[i] += 1
 		break 
 
-
    if changedpixels > pixels:
       timestamp = time.time()
       for i in range(len(pixArray)):
@@ -68,26 +67,13 @@ while (True):
 
       maxIdx = maxIndex(pixValues)
 
-      # Only change 1 step at a time
-      if oldMaxIdx != -1:
-        if oldMaxIdx < maxIdx:
-	  maxIdx = oldMaxIdx + 1
-	elif oldMaxIdx > maxIdx:
-	  maxIdx = oldMaxIdx - 1
+      if (oldMaxIdx == -1 or oldMaxIdx != maxIdx):
+        angle = pixAngle[maxIdx]
+#       print "max index: %d" % maxIdx
 
-      if maxIdx < 0:
-	maxIdx = 0
-      elif maxIdx > (len(pixArray) - 1):
-	maxIdx = (len(pixArray) - 1)
-
-      angle = pixAngle[maxIdx]
-    
-#      print "max index: %d" % maxIdx
-
-      urllib2.urlopen(mainframeUrl + "turn/left-eye/%d" % angle )
-      urllib2.urlopen(mainframeUrl + "turn/right-eye/%d" % angle)
-      oldMaxIdx = maxIdx
+        urllib2.urlopen(mainframeUrl + "turn/left-eye/%d" % angle )
+        urllib2.urlopen(mainframeUrl + "turn/right-eye/%d" % angle)
+        oldMaxIdx = maxIdx
+   
    image1 = image2
    buffer1 = buffer2
-  
-   sleep(0.1)

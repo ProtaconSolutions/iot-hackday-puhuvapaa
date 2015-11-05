@@ -57,6 +57,30 @@ def move(name, start, end, speed):
     time.sleep(0.01 * speed)
   return "ready"
 
+@app.route("/multimove/<names>/<int:start>/<int:end>/<int:speed>", methods=['GET'])
+def move_multiple(names, start, end, speed):
+  splitted = names.split(",")
+
+  if start < end:
+    direction = 1
+    steps = end - start
+  else:
+    direction = -1
+    steps = start - end
+  i = 0
+  currentStep = start
+
+  while i < steps:
+    for name in splitted:
+      index = limits[name]
+      angle = scale_value(name, currentStep)
+      pwm.set_pwm(index[0], 0, angle)
+    i = i + 1
+    currentStep = currentStep + direction
+    time.sleep(0.01 * speed)
+
+  return "OK"
+
 @app.route("/speech/<phrase>", methods=['GET'])
 def speech(phrase):
   subprocess.Popen(["espeak", phrase])

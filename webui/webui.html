@@ -1,0 +1,93 @@
+<head>
+	<title>puhuva pää web-ui</title>
+</head>
+
+<body>
+	<h1>Puhuvan pään komentokeskus</h1>
+
+	{{> bodyPartStatus}}
+
+	<hr />
+
+	<table>
+	<tr>
+		<th colspan="2">Vasen silmä</th>
+		<td>&nbsp;</td>
+		<th colspan="2">Oikea silmä</th>
+	</tr>
+	<tr>
+		{{> turnButton name="leftEye" direction="left"}}
+		{{> turnButton name="leftEye" direction="right"}}
+	<td>--</td>
+		{{> turnButton name="rightEye" direction="left"}}
+		{{> turnButton name="rightEye" direction="right"}}
+	</tr>
+	</table>
+	<table>
+	<tr>
+		<th colspan="4">Molemmat silmät</th>
+	</tr>
+	<tr>
+		{{> turnButton name="bothEyes" direction="left"}}
+		{{> turnButton name="bothEyes" direction="right"}}
+	</tr>
+	<tr><td colspan="4">
+		{{> commandButton text="katse eteen - päin!" call="turn/left-eye/50::turn/right-eye/50"}}
+	</td></tr>
+	<tr><td colspan="4">
+		{{> commandButton text="katso kieroon" call="turn/left-eye/0::turn/right-eye/100"}}
+	</td></tr>
+	<tr>
+		<th>Katso:</th>
+	</tr>
+	<tr>
+		<td colspan="2">
+			{{> commandButton text="vasempaan" call="turn/left-eye/100::turn/right-eye/100"}}
+		</td>
+		<td colspan="2">
+			{{> commandButton text="oikeaan" call="turn/left-eye/0::turn/right-eye/0"}}
+		</td>
+	</tr>
+	</table>
+	{{> brows}}
+	<hr />
+	{{> panicButton}}
+</body>
+
+<template name="turnButton">
+	<td>
+		<button id="{{name}}-{{direction}}" class="turn">{{direction}}</button>
+	</td>
+</template>
+
+<template name="bodyPartStatus">
+	<h2>Nykyiset (oletetut) asennot</h2>
+	<table>
+		<tr>
+			<td>[{{leftEye}}]</td>
+			<td>[{{rightEye}}]</td>
+		</tr>
+	</table>
+</template>
+
+<template name="brows">
+	<table>
+		<tr>
+			<th>Ripsukat</th>
+		</tr>
+		<tr><td><button id="wink">Joku</button></td></tr>
+		<tr><td><button id="neutral">Neutraali</button></td></tr>
+		<tr><td><button id="angry">Äkäinen</button></td></tr>
+		<tr><td><button id="mellow">Hämmentynyt</button></td></tr>
+	</table>
+</template>
+
+<template name="panicButton">
+	<button id="goCrazy">GO CRAZY</button> for 
+	<input id="insanityFactor" type="number" min="1" max="10" step="1" value="{{craziness}}"/>
+	seconds
+</template>
+
+<template name="commandButton">
+	<button data-call="{{call}}">{{text}}</button>
+</template>

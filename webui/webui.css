@@ -1,0 +1,14 @@
+#goCrazy {
+	font-size: 20px;
+	font-weight: bold;
+	color: red;
+}
+
+table {
+	border: thin dotted #ddd;
+	margin-bottom: 16px;
+}
+
+th {
+	text-align: left;
+}

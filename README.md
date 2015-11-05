@@ -28,6 +28,7 @@ Raspberry Pi Camera Board
 Run server:
 > python server.py
 
+## Motors and leds
 HTTP GET:
 http://localhost:5000/turn/{part}/{value}
 
@@ -43,3 +44,9 @@ Replace `{part}` with one of following values
   * `mouth3`
 
 Replace `{value}` with integer between 0-100.
+
+## Speech
+HTTP GET:
+http://localhost:500/speech/{content}
+
+Replace `{content}` with wanted speech output

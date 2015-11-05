@@ -28,8 +28,9 @@ Raspberry Pi Camera Board
 Run server:
 > python server.py
 
+All commands are HTTP GET, because of... reasons.
+
 ## Motors and leds
-HTTP GET:
 http://localhost:5000/turn/{part}/{value}
 
 Replace `{part}` with one of following values
@@ -45,8 +46,23 @@ Replace `{part}` with one of following values
 
 Replace `{value}` with integer between 0-100.
 
-## Speech
-HTTP GET:
-http://localhost:500/speech/{content}
+Servo test
+http:://localhost:5000/servotest/{delay}
 
-Replace `{content}` with wanted speech output
+Replace `{delay}` with integer value. Value is not used.
+
+## Speech
+http://localhost:5000/speech/{phrase}
+
+Replace `{phrase}` with wanted speech output
+
+## Finnish speech
+http://localhost:5000/suomi/{phrase}
+
+Replace `{phrase}` with wanted speech output
+
+## Crazy mocement
+http://localhost:5000/crazy/{duration}
+
+Replace `{duration}` with integer between 0-10. Duration is in seconds.
+Does random movement.

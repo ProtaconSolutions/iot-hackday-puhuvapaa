@@ -7,6 +7,7 @@ from flask import Flask
 import random
 # enable calling speech functions
 import subprocess
+import oracle
 
 limits = {
   "left-eye":(14, 200, 400),

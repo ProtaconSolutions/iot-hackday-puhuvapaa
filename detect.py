@@ -4,6 +4,7 @@ import picamera
 import urllib2
 import time
 from datetime import datetime
+from time import sleep 
 from PIL import Image
 
 camera = picamera.PiCamera()
@@ -39,6 +40,7 @@ image1, buffer1 = compare()
 timestamp = time.time()
 
 pixAngle = [0, 20, 35, 50, 70, 85, 100] 
+oldMaxIdx = -1;
 
 while (True):
 
@@ -64,18 +66,28 @@ while (True):
       for i in range(len(pixArray)):
         print "%d - %d" % (pixArray[i], pixValues[i])
 
-      # print "Left : %d" % pixLeft # 100
-      # print "Mid  : %d" % pixMiddle
-      # print "Right: %d" % pixRight # 0
-      direction = ''
-
       maxIdx = maxIndex(pixValues)
+
+      # Only change 1 step at a time
+      if oldMaxIdx != -1:
+        if oldMaxIdx < maxIdx:
+	  maxIdx = oldMaxIdx + 1
+	elif oldMaxIdx > maxIdx:
+	  maxIdx = oldMaxIdx - 1
+
+      if maxIdx < 0:
+	maxIdx = 0
+      elif maxIdx > (len(pixArray) - 1):
+	maxIdx = (len(pixArray) - 1)
+
       angle = pixAngle[maxIdx]
     
-      print "max index: %d" % maxIdx
+#      print "max index: %d" % maxIdx
 
       urllib2.urlopen(mainframeUrl + "turn/left-eye/%d" % angle )
       urllib2.urlopen(mainframeUrl + "turn/right-eye/%d" % angle)
-
+      oldMaxIdx = maxIdx
    image1 = image2
    buffer1 = buffer2
+  
+   sleep(0.1)

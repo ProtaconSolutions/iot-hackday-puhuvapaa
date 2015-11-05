@@ -47,8 +47,8 @@ def crazy(time):
   while(time.gmtime() < endTime)
     for key, value in limits.iteritems()
       address = value[0]
-      value = random.randint(0, 100)
-      pwm.set_pwm(address, 0 scale_value(key, value))
+      randomValue = random.randint(0, 100)
+      pwm.set_pwm(address, 0 scale_value(key, randomValue))
     time.sleep(0.5)
 
 @app.route("/servotest/<int:delay>", methods=['GET'])

@@ -4,12 +4,17 @@ from ABE_ServoPi import PWM
 import time
 from ABE_helpers import ABEHelpers
 from flask import Flask
+# enable calling speech functions
+import subprocess
 
 limits = {
   "left-eye":(14, 200, 400),
   "right-eye":(15, 180, 360),
   "left-brow":(12, 260, 460),
-  "right-brow":(13, 380, 560)
+  "right-brow":(13, 380, 560),
+  "mouth1":(6, 0, 4000),
+  "mouth2":(7, 0, 4000),
+  "mouth3":(8, 0, 4000)
 }
 
 bus = ABEHelpers().get_smbus()
@@ -30,13 +35,19 @@ def turn_eye(name, value):
   pwm.set_pwm(index[0], 0, scaled)
   return "Turn %s %d Scaled value: %s" % (name, value, scaled)
 
-@app.route("/servotest/<int:delay>", methods=['GET'])
-def servotest(delay)
-  for i in [0, 100, 50]
-    for key, value in limits.iteritems()
+@app.route("/speech/<phrase>", methods=['GET'])
+def speech(phrase):
+  subprocess.call(["espeak", phrase]);
+  return phrase
+
+@app.route("/servotest/<int:test>", methods=['GET'])
+def servotest(test):
+  for i in [0, 100, 50]:
+    for key, value in limits.iteritems():
       address = value[0]
       pwm.set_pwm(address, 0, scale_value(key, i))
-      time.sleep(delay)
+    time.sleep(1)
+  return "servo test finished"
 
 def scale_value(name, value):
   servo_values = limits[name]

@@ -37,20 +37,24 @@ def turn_eye(name, value):
   pwm.set_pwm(index[0], 0, scaled)
   return "Turn %s %d Scaled value: %s" % (name, value, scaled)
 
-@app.route("/move/<name>/<int:start>/<int:end>/<int:speed>")
+@app.route("/move/<name>/<int:start>/<int:end>/<int:speed>", methods=['GET'])
 def move(name, start, end, speed):
   index = limits[name]
-  startAngle = scale_value(name, start)
-  endAngle = scale_value(name, end)
-  currentAngle = startAngle
   if start < end:
-    step = speed
+    direction = 1
+    steps = end - start
   else:
-    step = -speed
-  while(currentAngle < endAngle):
-    pwm.set(index[0], 0, currentAngle)
-    currentAngle = currentAngle + step
-    time.sleep(0.1)
+    direction = -1
+    steps = start - end
+  i = 0
+  currentStep = start
+  
+  while i < steps:
+    angle = scale_value(name, currentStep)
+    pwm.set_pwm(index[0], 0, angle)
+    i = i + 1
+    currentStep = currentStep + direction
+    time.sleep(0.01 * speed)
   return "ready"
 
 @app.route("/speech/<phrase>", methods=['GET'])

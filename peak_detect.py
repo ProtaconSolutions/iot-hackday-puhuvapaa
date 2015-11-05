@@ -115,12 +115,13 @@ def main():
     
     for sample in monitor:
         sample = sample >> DISPLAY_SCALE
-        bar = '>' * sample
         step = ((4000 - 0) / 100.0)
         sample = int(step * sample)
-        spaces = ' ' * (MAX_SPACES - sample)
-        print ' %3d %s%s\r' % (sample, bar, spaces),
+
+        print ' %3d' % sample
+
         sys.stdout.flush()
+
 	pwm.set_pwm(8, 0, (randint(0,1) * sample))
 	pwm.set_pwm(7, 0, (randint(0,1) * sample))
 	pwm.set_pwm(6, 0, (randint(0,1) * sample))

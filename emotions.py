@@ -1,29 +1,44 @@
-import sys
-import socket
 import urllib2
 
-__timeout = 5
-__server = "http://192.168.140.16:5000/"
+import time
+
+__api_url = "http://192.168.140.16:5000"
+__url_messages = "http://puhuvapaa.azurewebsites.net/api/message"
 
 def __build_url(end):
-  return "%s%s" % (__server, end)
+  return "%s/%s" % (__api_url, end)
 
-def happy():
-  urllib2.urlopen(__build_url("turn/left-eye/100")).read()
-  urllib2.urlopen(__build_url("turn/right-eye/0")).read()
-  urllib2.urlopen(__build_url("turn/left-brow/50")).read()
-  urllib2.urlopen(__build_url("turn/right-brow/50")).read()
-  urllib2.urlopen(__build_url("speech/im_happy")).read()
+def left_brow(value):
+  urllib2.urlopen(__build_url("turn/left-brow/%s" % value)).read()
 
-def main(argv):
-  print "Emotions test program"
-  print "Arguments: %s" % argv
+def right_brow(value):
+  urllib2.urlopen(__build_url("turn/right-brow/%s" % value)).read()
 
-  socket.setdefaulttimeout(__timeout)
+def emotion_happy():
+  pass
 
-  for argument in argv:
-    if argument == "happy":
-      happy()
+def emotion_angry():
+  right_brow(10)
+  left_brow(90)
 
-if __name__ == "__main__":
-  main(sys.argv[1:])
+def emotion_disapointed():
+  right_brow(10)
+  left_brow(90)
+
+def emotion_neutral():
+  right_brow(50)
+  left_brow(50)
+
+def emotion_thinking():
+  right_brow(40)
+  left_brow(70)
+  time.sleep(1)
+  right_brow(50)
+  left_brow(40)
+  time.sleep(1)
+  right_brow(40)
+  left_brow(80)
+  time.sleep(1)
+
+def emotion_crazy():
+  urllib2.urlopen(__build_url("crazy/5")).read()

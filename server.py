@@ -30,13 +30,13 @@ def turn_eye(name, value):
   pwm.set_pwm(index[0], 0, scaled)
   return "Turn %s %d Scaled value: %s" % (name, value, scaled)
 
-@app.route("/servotest/")
-def servotest()
+@app.route("/servotest/<int:delay>", methods=['GET'])
+def servotest(delay)
   for i in [0, 100, 50]
     for key, value in limits.iteritems()
       address = value[0]
       pwm.set_pwm(address, 0, scale_value(key, i))
-      time.sleep(1)
+      time.sleep(delay)
 
 def scale_value(name, value):
   servo_values = limits[name]

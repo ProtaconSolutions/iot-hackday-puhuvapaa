@@ -2,10 +2,14 @@ import io
 import os
 import picamera
 import urllib2
+import urllib
 import time
 from datetime import datetime
 from time import sleep 
 from PIL import Image
+from random import randint
+
+messages = ["onko siella ketaan", "i demand attention", "here comes Johnny", "youhoo", "voin haistaa sinut", "my precious", "nika please", "how about a nice game of chess", "the only way to win in a Nuclear war is not to play", "aaaaaaaaaaaaaaaaaaaaa"]
 
 camera = picamera.PiCamera()
 
@@ -41,6 +45,7 @@ timestamp = time.time()
 
 pixAngle = [0, 20, 35, 50, 70, 85, 100] 
 oldMaxIdx = -1;
+lastUpdateTime = 0;
 
 while (True):
 
@@ -74,6 +79,17 @@ while (True):
         urllib2.urlopen(mainframeUrl + "turn/left-eye/%d" % angle )
         urllib2.urlopen(mainframeUrl + "turn/right-eye/%d" % angle)
         oldMaxIdx = maxIdx
+	lastUpdateTime = timestamp
    
    image1 = image2
    buffer1 = buffer2
+
+   if time.time() - lastUpdateTime > 30:
+     print "yawn"
+     randIdx = randint(0, len(messages)-1)
+     message = messages[randIdx].replace(" ", "%20")
+     urllib2.urlopen(mainframeUrl + "speech/" + message)
+     lastUpdateTime = time.time()
+     if message == "aaaaaaaaaaaaaaaaaaaaa":
+       urllib2.urlopen(mainframeUrl + "crazy/10")
+
